@@ -78,41 +78,25 @@ class ImageContainer:
                         s = math.ceil(s/(255/S_DIVISIONS)) -1
                         h = math.ceil(h/(179/H_DIVISIONS)) -1
                         self.bin[i][S_DIVISIONS*V_DIVISIONS*h + s*V_DIVISIONS + v] += 1  #Places the pixel in a bin according to HSV value
-            #total = 0
             for n in range(H_DIVISIONS * S_DIVISIONS * V_DIVISIONS):
-                self.bin[i][n] = round((self.bin[i][n]/totalpixels), 5)
-            #    self.bin[i][n] /= totalpixels
-            #    total += self.bin[i][n]
-            #print(total)
+            #    self.bin[i][n] = round((self.bin[i][n]/totalpixels), 5)
+                self.bin[i][n] /= totalpixels
         if(self.main == True): ImageContainer.bin_main = self.bin
         #cv2.imshow("green", self.region[1]);cv2.waitKey();cv2.destroyAllWindows()
             
     def Comparator(self):
-        #MatchFound = True
         if(self.main == False):
             average = 0
             for i in range(5):
                 average += self.chiSquare(i)
-                print(self.chiSquare(i))
+                #print(self.chiSquare(i))
             average /= 5
             print(average)
-            if(average <= 1): print("Image match found")
-            else: print("Image match not found")
-        
-                #for n in range(H_DIVISIONS * S_DIVISIONS * V_DIVISIONS ):
-                #    if(self.bin[i][n] != ImageContainer.bin_main[i][n]):
-                #        MatchFound = False
-                #        break
-                #if(MatchFound == False):    break
-            #if(MatchFound == True):    print("Image match has been found")
+            #if(average <= 1): print("Image match found")
             #else: print("Image match not found")
         
     def chiSquare(self,i):
         d = 0.5* np.sum([(a-b)**2 / (a+b+float(1e-10)) for (a,b) in zip(self.bin[i],ImageContainer.bin_main[i])])
         return d
 
-#if __name__ == "__main__":
-#    SourceImage = ImageContainer("F:\\Usama\\Extras\\Untitled.png", main = True)
-#    SourceImage.BinSort()
-#    print(ImageContainer.bin_main)
 
