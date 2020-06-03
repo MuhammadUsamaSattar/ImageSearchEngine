@@ -63,7 +63,6 @@ class ImageContainer:
         self.region = [topleft, topright, center, bottomleft, bottomright]
 
         self.BinSort()
-        self.Comparator()
 
     def BinSort(self):
         self.bin = [[0 for i in range(H_DIVISIONS * S_DIVISIONS * V_DIVISIONS)]for j in range(5)]
@@ -91,7 +90,7 @@ class ImageContainer:
                 average += self.chiSquare(i)
                 #print(self.chiSquare(i))
             average /= 5
-            print(average)
+            return average
             #if(average <= 1): print("Image match found")
             #else: print("Image match not found")
         

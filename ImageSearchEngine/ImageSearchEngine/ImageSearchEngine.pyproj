@@ -24,6 +24,9 @@
     <Compile Include="ImageContainer.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ImageFinder.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="ImageSearchEngine.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
