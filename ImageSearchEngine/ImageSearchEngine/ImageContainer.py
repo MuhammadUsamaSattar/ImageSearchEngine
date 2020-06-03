@@ -16,17 +16,17 @@ class ImageContainer:
         self.main = main
         image = cv2.imread(path)
         print(path)
-        #self.height, self.width, channel = image.shape
+        self.height, self.width, channel = image.shape
         
         #Uncomment this portion if image rescaling is required to fit orginal image size
         if(self.main == True):
             ImageContainer.height_main, ImageContainer.width_main, _ = image.shape
             self.width = ImageContainer.width_main 
             self.height = ImageContainer.height_main
-        else:
-            image = cv2.resize(image, (ImageContainer.width_main, ImageContainer.height_main))
-            self.width = ImageContainer.width_main
-            self.height = ImageContainer.height_main
+        elif(self.height > ImageContainer.height_main or self.width > ImageContainer.width_main):
+                image = cv2.resize(image, (ImageContainer.width_main, ImageContainer.height_main))
+                self.width = ImageContainer.width_main
+                self.height = ImageContainer.height_main
 
         #Following portion divides the image into five parts
         center = np.zeros((self.height, self.width, 3), np.uint8)

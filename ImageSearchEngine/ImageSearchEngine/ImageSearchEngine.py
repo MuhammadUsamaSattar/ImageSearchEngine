@@ -15,9 +15,10 @@ import os
 #b =ImageContainer("F:\\Usama\\Projects\\Programming\\ImageSearchEngine\\Picture Set\\98.jpg")
 #b =ImageContainer("F:\\Usama\\Projects\\Programming\\ImageSearchEngine\\Picture Set\\2.jpg")
 
-ImageFinder('Sea', 1,r'F:\Usama\Projects\Programming\ImageSearchEngine\Picture Set\2.jpg')
+ImageFinder('F:\\Usama\\Projects\\Programming\\ImageSearchEngine\\Picture Set\\5.jpg', 'Sea', 100)
 
 #os.mkdir(r'Image Database\Sea')
-
+#for path in pathlib.Path('Image Database\\Sea\\').iterdir():
+#    print(path)
 #for count in range(10):
 #   print(str('A'+0 for x in range(count)))
