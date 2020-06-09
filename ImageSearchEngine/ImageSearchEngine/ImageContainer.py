@@ -21,7 +21,6 @@ class ImageContainer:
         print(path)
         self.height, self.width, channel = image.shape
         
-        #Uncomment this portion if image rescaling is required to fit orginal image size
         if(self.main == True):
             ImageContainer.height_main, ImageContainer.width_main, _ = image.shape
             self.width = ImageContainer.width_main 
