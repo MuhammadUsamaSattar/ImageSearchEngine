@@ -50,4 +50,4 @@ class ImageFinder:
 
         f = open("Image Database\\"+self.keyword+"\\Similarity Indices.txt", "w")
         for i in range(count):
-            f.write("File Number: "+ str(i+1)+"     |     Similarity Index: "+ str(SimilarityIndex[i])+ "     |\n")
+            f.write("File Number: {:>5}    |     Similarity Index: {:<18}     |\n".format(str(i+1),str(SimilarityIndex[i])))
