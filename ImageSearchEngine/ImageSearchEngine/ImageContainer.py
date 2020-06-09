@@ -100,10 +100,11 @@ class ImageContainer:
 
         elif(self.sorting == 'OpenCV Histogram'):
             for i in range(5):
-                bin[i] = cv2.calcHist([self.image],[0,1,2], self.region[i],[H_DIVISIONS,S_DIVISIONS,V_DIVISIONS],[0,180,0,256,0,256])
-                bin[i] = cv2.normalize(bin[i],bin[i]).flatten()
-                for i in range(len(hist)-1):
-                    self.bin[i] = hist[i+1]
+                hist = cv2.calcHist([self.image],[0,1,2], self.region[i],[H_DIVISIONS,S_DIVISIONS,V_DIVISIONS],[0,180,0,256,0,256])
+                hist = cv2.normalize(hist,hist).flatten()
+                print(hist)
+                for k in range((H_DIVISIONS*S_DIVISIONS*V_DIVISIONS)-1):
+                    self.bin[i][k+1] = hist[k+1]
                 if(self.main == True):  ImageContainer.bin_main[i] = self.bin[i]
 
     def Comparator(self):

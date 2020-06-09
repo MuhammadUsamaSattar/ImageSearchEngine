@@ -15,7 +15,7 @@ import os
 #b =ImageContainer("F:\\Usama\\Projects\\Programming\\ImageSearchEngine\\Picture Set\\98.jpg")
 #b =ImageContainer("F:\\Usama\\Projects\\Programming\\ImageSearchEngine\\Picture Set\\2.jpg")
 
-ImageFinder('C:\\Downloads\\2010671.jpg', 'Mountain', 5, sorting = "OpenCV Histogram")
+ImageFinder('C:\\Downloads\\2010671.jpg', 'Mountain', 5, sorting = "Custom")
 
 #os.mkdir(r'Image Database\Sea')
 #for path in pathlib.Path('Image Database\\Sea\\').iterdir():
