@@ -2,10 +2,8 @@ from ImageContainer import *
 from ImageFinder import *
 import os
 from GUI import *
-from PySide2.QtWidgets import QApplication
 
-
-app = QApplication(sys.argv)
+app = QtWidgets.QApplication(sys.argv)
 window = GUI()
 sys.exit(app.exec_())
 
