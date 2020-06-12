@@ -8,3 +8,4 @@ window = GUI()
 app.exec_()
 
 #ImageFinder('C:\\Downloads\\2010671.jpg', 'Mountain', 5)
+

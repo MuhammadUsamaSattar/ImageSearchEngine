@@ -29,18 +29,25 @@ class GUI(QtWidgets.QMainWindow):
         self.setGeometry(WINDOW_WIDTH/6,WINDOW_HEIGHT/6,WINDOW_WIDTH,WINDOW_HEIGHT)
         
         #self.menu()
+        self.setMainImage()
         self.searchImagesButton()
         self.numberSelector()
         self.tagSelector()
         self.destpath()
+        self.help()
         self.textWriter()
-        self.setMainImage()
         self.show()
-        
+
+    def setMainImage(self):
+        self.mainImageButton = QtWidgets.QPushButton("Set Source File",self)
+        self.mainImageButton.resize(self.mainImageButton.minimumSizeHint())
+        self.mainImageButton.move(13*WINDOW_WIDTH/16,5*WINDOW_HEIGHT/8)
+        self.mainImageButton.clicked.connect(self.browsewindow)
+
     def searchImagesButton(self):
         self.btn = QtWidgets.QPushButton("Search Online",self)
         self.btn.resize(self.btn.minimumSizeHint())
-        self.btn.move(14*WINDOW_WIDTH/16,5*WINDOW_HEIGHT/8)
+        self.btn.move(13*WINDOW_WIDTH/16,5.5*WINDOW_HEIGHT/8)
         self.btn.clicked.connect(self.searchOnline)
 
     def destpath(self):
@@ -49,11 +56,11 @@ class GUI(QtWidgets.QMainWindow):
         self.destpathButton.move(13*WINDOW_WIDTH/16,6*WINDOW_HEIGHT/8)
         self.destpathButton.clicked.connect(self.dest)
 
-    def setMainImage(self):
-        self.mainImageButton = QtWidgets.QPushButton("Set Man File",self)
-        self.mainImageButton.resize(self.mainImageButton.minimumSizeHint())
-        self.mainImageButton.move(13*WINDOW_WIDTH/16,5*WINDOW_HEIGHT/8)
-        self.mainImageButton.clicked.connect(self.browsewindow)
+    def help(self):
+        self.helpButton = QtWidgets.QPushButton("Help",self)
+        self.helpButton.resize(self.helpButton.minimumSizeHint())
+        self.helpButton.move(13*WINDOW_WIDTH/16,6.5*WINDOW_HEIGHT/8)
+        #self.helpButton.clicked.connect()
 
     def menu(self):
         browse_option = QtWidgets.QAction("&Browse...", self)
@@ -78,13 +85,13 @@ class GUI(QtWidgets.QMainWindow):
         print(self.filepath)
         self.filepath = pathResolver(str(self.filepath))
         print(self.filepath)
-        #self.imageDisplay()
+        self.imageDisplay()
 
     def numberSelector(self):
         self.numberSelectorBox = QtWidgets.QLineEdit(self)
         self.numberSelectorBox.setMaxLength(3)
         self.numberSelectorBox.resize(self.numberSelectorBox.minimumSizeHint())
-        self.numberSelectorBox.setText("5")
+        self.numberSelectorBox.setText("")
         self.numberSelectorBox.move(13*WINDOW_WIDTH/16,1.5*WINDOW_HEIGHT/16)
         validator = QtGui.QIntValidator()
         self.numberSelectorBox.setValidator(validator)
@@ -105,11 +112,12 @@ class GUI(QtWidgets.QMainWindow):
         displayimage = QtWidgets.QLabel(parent = self)
         displayimage.setPixmap(pixmap)
         self.setCentralWidget(displayimage)
+        displayimage.show()
 
     def textWriter(self):
-        textNum = QtWidgets.QLabel("Num",self)
+        textNum = QtWidgets.QLabel("Number of related to images to find",self)
         textNum.move(13*WINDOW_WIDTH/16,2*WINDOW_HEIGHT/32)
-        textTag = QtWidgets.QLabel("Tag",self)
+        textTag = QtWidgets.QLabel("Image Tag",self)
         textTag.move(13*WINDOW_WIDTH/16,4*WINDOW_HEIGHT/32)
 
     def paintEvent(self, e):

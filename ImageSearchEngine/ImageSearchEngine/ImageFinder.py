@@ -52,3 +52,7 @@ class ImageFinder:
         f = open(self.destpath+'\\'+self.keyword+"\\Similarity Indices.txt", "w")
         for i in range(count):
             f.write("File Number: {:>5}    |     Similarity Index: {:<18}     |\n".format(str(i+1),str(SimilarityIndex[i])))
+
+        path = self.destpath+"\\"+self.keyword+"\\"
+        path = os.path.realpath(path)
+        os.startfile(path)
