@@ -25,7 +25,7 @@ class GUI(QtWidgets.QMainWindow):
         super().__init__()
 
         self.setWindowTitle("Image Search Engine")
-        self.setWindowIcon(QtGui.QIcon(r"Icons\Main Window.png"))
+        self.setWindowIcon(QtGui.QIcon(r"Resources\Icons\Main Window.png"))
         self.setGeometry(WINDOW_WIDTH/6,WINDOW_HEIGHT/6,WINDOW_WIDTH,WINDOW_HEIGHT)
 
         self.setMainImage()
@@ -163,7 +163,7 @@ class GUI(QtWidgets.QMainWindow):
     def helpWindow(self):
         self.help = QtWidgets.QWidget()
         self.help.setWindowTitle("Help")
-        self.help.setWindowIcon(QtGui.QIcon(r"Icons\Help.png"))
+        self.help.setWindowIcon(QtGui.QIcon(r"Resources\Icons\Help.png"))
         self.help.setGeometry(1*WINDOW_WIDTH/3,1*WINDOW_HEIGHT/3,700,250)
         self.helpText()
         self.okButton()
