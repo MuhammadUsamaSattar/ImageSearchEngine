@@ -5,16 +5,19 @@ import os
 import sys
 
 class ImageFinder:
-    def __init__(self, sourcePath, keyword, destpath="Image Database" ,num = 5):
+    def __init__(self, sourcePath, keyword,hD, sD, vD, destpath="Image Database" ,num = 5):
         self.sourcePath = sourcePath
         self.keyword = keyword
         self.destpath = destpath
+        self.hD = hD
+        self.sD = sD
+        self.vD = vD
         bingcrawler = BingImageCrawler(storage={'root_dir':self.destpath+"\\"+self.keyword+'\\'})
         bingcrawler.crawl(keyword=self.keyword,max_num = num)
         self.Sorter()
 
     def Sorter(self):
-        ImageContainer(self.sourcePath, main = True)
+        ImageContainer(self.sourcePath,self.hD, self.sD, self.vD, main = True )
         SimilarityIndex = []
         OrignalFileNumber = []
         count = 0
@@ -36,6 +39,7 @@ class ImageFinder:
                     OrignalFileNumber[i] = OrignalFileNumber[i+1]
                     OrignalFileNumber[i+1] = OrignalFileNumber[-1]
             k += 1
+        print(SimilarityIndex)
 
         for x in range(k):
             if(OrignalFileNumber[x]/10 < 1):
