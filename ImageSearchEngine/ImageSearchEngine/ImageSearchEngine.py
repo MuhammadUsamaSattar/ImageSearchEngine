@@ -1,5 +1,8 @@
 from ImageContainer import *
 from ImageFinder import *
 import os
+from GUI import *
 
-ImageFinder('C:\\Downloads\\2010671.jpg', 'Mountain', 5)
+app = QtWidgets.QApplication(sys.argv)
+window = GUI()
+app.exec_()
