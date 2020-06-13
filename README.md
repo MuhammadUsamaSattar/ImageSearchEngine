@@ -5,11 +5,11 @@ OpenCV has been used for obtaining image data and chi square distribution has be
 
 ## Screenshots
 
-![MainWindow](\Images\MainWindow.png)
+![MainWindow](Images\MainWindow.png)
 
 The software has a viewing area to allow the user to view the picture selected.
 
-![LoadedPicture](\Images\ImageLoaded.png)
+![LoadedPicture](Images\ImageLoaded.png)
 
 ## Installation
 
