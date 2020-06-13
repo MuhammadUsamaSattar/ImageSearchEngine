@@ -7,7 +7,6 @@ import ctypes
 
 WINDOW_WIDTH = ctypes.windll.user32.GetSystemMetrics(0)*0.75
 WINDOW_HEIGHT = ctypes.windll.user32.GetSystemMetrics(1)*0.75
-RATIO = WINDOW_WIDTH/WINDOW_HEIGHT
 
 def pathResolver(path):
     newpath = ""
@@ -25,10 +24,10 @@ class GUI(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
 
-        self.setWindowTitle("Hello")
+        self.setWindowTitle("Image Search Engine")
+        self.setWindowIcon(QtGui.QIcon(r"Icons\Main Window.png"))
         self.setGeometry(WINDOW_WIDTH/6,WINDOW_HEIGHT/6,WINDOW_WIDTH,WINDOW_HEIGHT)
-        
-        #self.menu()
+
         self.setMainImage()
         self.searchImagesButton()
         self.numberSelector()
@@ -44,44 +43,32 @@ class GUI(QtWidgets.QMainWindow):
         self.mainImageButton.move(13*WINDOW_WIDTH/16,5*WINDOW_HEIGHT/8)
         self.mainImageButton.clicked.connect(self.browsewindow)
 
+    def destpath(self):
+        self.destpathButton = QtWidgets.QPushButton("Set Destination Path",self)
+        self.destpathButton.resize(self.destpathButton.minimumSizeHint())
+        self.destpathButton.move(13*WINDOW_WIDTH/16,5.5*WINDOW_HEIGHT/8)
+        self.destpathButton.clicked.connect(self.dest)
+
     def searchImagesButton(self):
         self.btn = QtWidgets.QPushButton("Search Online",self)
         self.btn.resize(self.btn.minimumSizeHint())
-        self.btn.move(13*WINDOW_WIDTH/16,5.5*WINDOW_HEIGHT/8)
+        self.btn.move(13*WINDOW_WIDTH/16,6*WINDOW_HEIGHT/8)
         self.btn.clicked.connect(self.searchOnline)
-
-    def destpath(self):
-        self.destpathButton = QtWidgets.QPushButton("Select Destination",self)
-        self.destpathButton.resize(self.destpathButton.minimumSizeHint())
-        self.destpathButton.move(13*WINDOW_WIDTH/16,6*WINDOW_HEIGHT/8)
-        self.destpathButton.clicked.connect(self.dest)
 
     def help(self):
         self.helpButton = QtWidgets.QPushButton("Help",self)
         self.helpButton.resize(self.helpButton.minimumSizeHint())
         self.helpButton.move(13*WINDOW_WIDTH/16,6.5*WINDOW_HEIGHT/8)
-        #self.helpButton.clicked.connect()
+        self.helpButton.clicked.connect(self.helpWindow)
 
-    def menu(self):
-        browse_option = QtWidgets.QAction("&Browse...", self)
-        browse_option.setShortcut("Ctrl+N")
-        browse_option.setToolTip("Browse to your desired file")
-        browse_option.triggered.connect(self.browsewindow)
-        
-        exit_option = QtWidgets.QAction("&Exit", self)
-        exit_option.setShortcut("Ctrl+E")
-        exit_option.setToolTip("Exit the software")
-        exit_option.triggered.connect(self.exit)
-    
-        self.statusBar()
-    
-        mainMenu = self.menuBar()
-        fileMenu = mainMenu.addMenu('&File')
-        fileMenu.addAction(browse_option)
-        fileMenu.addAction(exit_option)
+    def okButton(self):
+        self.okButton = QtWidgets.QPushButton("OK",self.help)
+        self.okButton.resize(self.okButton.minimumSizeHint())
+        self.okButton.move(300,210)
+        self.okButton.clicked.connect(self.help.close)
 
     def browsewindow(self):
-        self.filepath = QtWidgets.QFileDialog.getOpenFileName(self, "Browse Image File","\\home\\","Images (*.png *.jpg *.jpeg *.bmp)")[0]
+        self.filepath = QtWidgets.QFileDialog.getOpenFileName(self, "Browse Image File","C:\\","Images (*.png *.jpg *.jpeg *.bmp)")[0]
         print(self.filepath)
         self.filepath = pathResolver(str(self.filepath))
         print(self.filepath)
@@ -109,16 +96,33 @@ class GUI(QtWidgets.QMainWindow):
     def imageDisplay(self):
         pixmap = QtGui.QPixmap(self.filepath)
         pixmap = pixmap.scaledToWidth(12*WINDOW_WIDTH/16)
-        displayimage = QtWidgets.QLabel(parent = self)
+        displayimage = QtWidgets.QLabel(self)
         displayimage.setPixmap(pixmap)
-        self.setCentralWidget(displayimage)
+        displayimage.setGeometry(QtCore.QRect(0,0,12*WINDOW_WIDTH/16,WINDOW_HEIGHT))
         displayimage.show()
 
     def textWriter(self):
-        textNum = QtWidgets.QLabel("Number of related to images to find",self)
+        textNum = QtWidgets.QLabel("Number",self)
         textNum.move(13*WINDOW_WIDTH/16,2*WINDOW_HEIGHT/32)
         textTag = QtWidgets.QLabel("Image Tag",self)
         textTag.move(13*WINDOW_WIDTH/16,4*WINDOW_HEIGHT/32)
+
+    def helpText(self):
+        text = QtWidgets.QLabel("""\n                                    Press \"Set Source File\" to select the file for which match has to be found.\n
+                                    Press \"Set Destination Path\" to select the folder in which matched images will be stored.\n
+                                    Press \"Search Online\" to start finding matches for the sourcce image.\n
+                                    Enter \"Number\" to select the number of matching images desired.\n
+                                    Enter \"Image Tag\" to give a related keyword to the image.\n
+                                    If no destination is selected, python working director will be used to store the images. If no number is selected, the
+                                    program will use 5 as the desired number of images.
+                                    Matches found may not resemble the source image due to the fact that matching is achieved by comparing color histograms
+                                    which is sometimes inaccurate.
+                                    """
+                                    ,self.help)
+        text.resize(800,300)
+        text.setWordWrap(True)
+        #text.setFont(QtGui.QFont(pointSize = 20))
+        text.move(-75,-40)
 
     def paintEvent(self, e):
         painter = QtGui.QPainter()
@@ -156,7 +160,16 @@ class GUI(QtWidgets.QMainWindow):
     def assignTag(self):
         self.tag = str(self.tagSelectorBox.text())
 
+    def helpWindow(self):
+        self.help = QtWidgets.QWidget()
+        self.help.setWindowTitle("Help")
+        self.help.setWindowIcon(QtGui.QIcon(r"Icons\Help.png"))
+        self.help.setGeometry(1*WINDOW_WIDTH/3,1*WINDOW_HEIGHT/3,700,250)
+        self.helpText()
+        self.okButton()
+        self.help.show()
+
     def exit(self):
         sys.exit()
-
-
+        
+        
