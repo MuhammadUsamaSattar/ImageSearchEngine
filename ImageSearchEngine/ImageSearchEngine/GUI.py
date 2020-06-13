@@ -94,7 +94,7 @@ class GUI(QtWidgets.QMainWindow):
         self.tagSelectorBox.textEdited.connect(self.assignTag)
 
     def imageDisplay(self):
-        pixmap = QtGui.QPixmap(self.filepath)
+        pixmap = QtGui.QPixmap(self.filepath) 
         pixmap = pixmap.scaledToWidth(12*WINDOW_WIDTH/16)
         displayimage = QtWidgets.QLabel(self)
         displayimage.setPixmap(pixmap)
