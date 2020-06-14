@@ -140,7 +140,7 @@ class GUI(QtWidgets.QMainWindow):
                                     Press \"Search Online\" to start finding matches for the sourcce image.\n
                                     Enter \"Number\" to select the number of matching images desired.\n
                                     Enter \"Image Tag\" to give a related keyword to the image.\n
-                                    H, S and V bins can also be selected. The recommended values for these are around 8, 12 and 3 respectively. 
+                                    H, S and V bins can also be selected. The recommended values for these are 8, 12 and 3 respectively. 
                                     Deviating too much from these will eihter result in over fitting or underfitting.
                                     If no destination is selected, python working director will be used to store the images. If no number is selected, the
                                     program will use 5 as the desired number of images.
@@ -183,6 +183,8 @@ class GUI(QtWidgets.QMainWindow):
         self.hslider.move(13*WINDOW_WIDTH/16,4*WINDOW_HEIGHT/16)
         self.hValueLabel = QtWidgets.QLabel("1",self)
         self.hValueLabel.move(13.5*WINDOW_WIDTH/16,3.5*WINDOW_HEIGHT/16)
+        self.hslider.setValue(8)
+        self.assignHValue()
         self.hslider.valueChanged.connect(self.assignHValue)
 
     def sSlider(self):
@@ -196,6 +198,8 @@ class GUI(QtWidgets.QMainWindow):
         self.sslider.move(13*WINDOW_WIDTH/16,6*WINDOW_HEIGHT/16)
         self.sValueLabel = QtWidgets.QLabel("1",self)
         self.sValueLabel.move(13.5*WINDOW_WIDTH/16,5.5*WINDOW_HEIGHT/16)
+        self.sslider.setValue(12)
+        self.assignSValue()
         self.sslider.valueChanged.connect(self.assignSValue)
 
     def vSlider(self):
@@ -209,6 +213,8 @@ class GUI(QtWidgets.QMainWindow):
         self.vslider.move(13*WINDOW_WIDTH/16,8*WINDOW_HEIGHT/16)
         self.vValueLabel = QtWidgets.QLabel("1",self)
         self.vValueLabel.move(13.5*WINDOW_WIDTH/16,7.5*WINDOW_HEIGHT/16)
+        self.vslider.setValue(3)
+        self.assignVValue()
         self.vslider.valueChanged.connect(self.assignVValue)
 
     def searchOnline(self):

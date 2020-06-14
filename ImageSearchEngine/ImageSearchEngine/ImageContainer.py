@@ -75,6 +75,7 @@ class ImageContainer:
                         h = math.ceil(h/(179/self.hDivisions)) -1
                         self.bin[i][self.sDivisions*self.vDivisions*h + s*self.vDivisions + v] += 1  #Places the pixel in a bin according to HSV value
             for n in range(self.hDivisions * self.sDivisions * self.vDivisions):
+                if(totalpixels == 0): totalpixels = 1
                 self.bin[i][n] /= totalpixels
         if(self.main == True): ImageContainer.bin_main = self.bin
         #cv2.imshow("green", self.region[1]);cv2.waitKey();cv2.destroyAllWindows()
@@ -84,7 +85,6 @@ class ImageContainer:
             average = 0
             for i in range(5):
                 average += self.chiSquare(i)
-                #print(self.chiSquare(i))
             average /= 5
             return average
         
