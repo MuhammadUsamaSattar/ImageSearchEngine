@@ -14,9 +14,9 @@ The software has a viewing area to allow the user to view the picture selected.
 ## Installation
 
 1. Clone the repository in a desired folder
-2. Open ImageSearchEngine/ImageSearchEngine/
-3. Type CMD in the directory bar
-4. Type "Python setup.py develop"
+2. Open ImageSearchEngine/ImageSearchEngine/ which is the direcotry with setup.py file
+3. Enter "cmd" in the directory bar
+4. Enter "Python setup.py develop"
 5. Run the main.py script
 
 ## Instructions
