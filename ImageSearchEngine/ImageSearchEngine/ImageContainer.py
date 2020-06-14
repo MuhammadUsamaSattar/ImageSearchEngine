@@ -2,19 +2,19 @@ import cv2
 import numpy as np
 import math
 
-#The number of bins for each of these determine the fitting of picture pixel information. Higher number of bins overfits while lower underfits.
-H_DIVISIONS = 8
-S_DIVISIONS = 12
-V_DIVISIONS = 3
 
 class ImageContainer:
-    bin_main = [[0 for i in range(H_DIVISIONS * S_DIVISIONS * V_DIVISIONS )]for j in range(5)]
+    bin_main = [[],[],[],[],[]]
     height_main = 0
     width_main = 0
 
-    def __init__ (self, path, main = False):
+    def __init__ (self, path,hDivisions = 8, sDivisions = 12, vDivisions = 3, main = False,):
+        bin_main = [[0 for i in range(hDivisions*sDivisions*vDivisions)]for j in range(5)]
         self.main = main
         self.path = path
+        self.hDivisions = hDivisions
+        self.sDivisions = sDivisions
+        self.vDivisions = vDivisions
         image = cv2.imread(self.path)
         image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
         self.image = image
@@ -62,7 +62,7 @@ class ImageContainer:
         self.BinSort()
 
     def BinSort(self):
-        self.bin = [[0 for i in range(H_DIVISIONS * S_DIVISIONS * V_DIVISIONS)]for j in range(5)]
+        self.bin = [[0 for i in range(self.hDivisions * self.sDivisions * self.vDivisions)]for j in range(5)]
         for i in range(5):
             totalpixels = 0
             for x in range(self.width):
@@ -70,11 +70,12 @@ class ImageContainer:
                     h, s, v = self.region[i][y, x]
                     if (h != 0 and s != 0 and v != 0):
                         totalpixels += 1
-                        v = math.ceil(v/(255/V_DIVISIONS)) -1
-                        s = math.ceil(s/(255/S_DIVISIONS)) -1
-                        h = math.ceil(h/(179/H_DIVISIONS)) -1
-                        self.bin[i][S_DIVISIONS*V_DIVISIONS*h + s*V_DIVISIONS + v] += 1  #Places the pixel in a bin according to HSV value
-            for n in range(H_DIVISIONS * S_DIVISIONS * V_DIVISIONS):
+                        v = math.ceil(v/(255/self.vDivisions)) -1
+                        s = math.ceil(s/(255/self.sDivisions)) -1
+                        h = math.ceil(h/(179/self.hDivisions)) -1
+                        self.bin[i][self.sDivisions*self.vDivisions*h + s*self.vDivisions + v] += 1  #Places the pixel in a bin according to HSV value
+            for n in range(self.hDivisions * self.sDivisions * self.vDivisions):
+                if(totalpixels == 0): totalpixels = 1
                 self.bin[i][n] /= totalpixels
         if(self.main == True): ImageContainer.bin_main = self.bin
         #cv2.imshow("green", self.region[1]);cv2.waitKey();cv2.destroyAllWindows()
@@ -84,12 +85,9 @@ class ImageContainer:
             average = 0
             for i in range(5):
                 average += self.chiSquare(i)
-                #print(self.chiSquare(i))
             average /= 5
             return average
         
     def chiSquare(self,i):
         d = 0.5* np.sum([(a-b)**2 / (a+b+float(1e-10)) for (a,b) in zip(self.bin[i],ImageContainer.bin_main[i])])
         return d
-
-
