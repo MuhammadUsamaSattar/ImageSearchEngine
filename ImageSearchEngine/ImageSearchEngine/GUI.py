@@ -66,7 +66,7 @@ class GUI(QtWidgets.QMainWindow):
     def okButton(self):
         self.okButton = QtWidgets.QPushButton("OK",self.help)
         self.okButton.resize(self.okButton.minimumSizeHint())
-        self.okButton.move(300,240)
+        self.okButton.move(300,180)
         self.okButton.clicked.connect(self.help.close)
 
     def browsewindow(self):
@@ -135,14 +135,14 @@ class GUI(QtWidgets.QMainWindow):
 
 
     def helpText(self):
-        text = QtWidgets.QLabel("""\n                                    Press \"Set Source File\" to select the file for which match has to be found.\n
-                                    Press \"Set Destination Path\" to select the folder in which matched images will be stored.\n
-                                    Press \"Search Online\" to start finding matches for the sourcce image.\n
-                                    Enter \"Number\" to select the number of matching images desired.\n
-                                    Enter \"Image Tag\" to give a related keyword to the image.\n
+        text = QtWidgets.QLabel("""\n                                    Press \"Set Source File\" to select the file for which match has to be found.
+                                    Press \"Set Destination Path\" to select the folder in which matched images will be stored.
+                                    Press \"Search Online\" to start finding matches for the sourcce image.
+                                    Enter \"Number\" to select the number of matching images desired.
+                                    Enter \"Image Tag\" to give a related keyword to the image.
                                     H, S and V bins can also be selected. The recommended values for these are 8, 12 and 3 respectively. 
-                                    Deviating too much from these will eihter result in over fitting or underfitting.
-                                    If no destination is selected, python working director will be used to store the images. If no number is selected, the
+                                    Deviating too much from these will either result in overfitting or underfitting.
+                                    If no destination is selected, python working directory will be used to store the images(\Image Dataset\). If no number is selected, the
                                     program will use 5 as the desired number of images.
                                     Matches found may not resemble the source image due to the fact that matching is achieved by comparing color histograms
                                     which is sometimes inaccurate.
@@ -150,7 +150,7 @@ class GUI(QtWidgets.QMainWindow):
                                     ,self.help)
         text.resize(800,300)
         text.setWordWrap(True)
-        text.move(-75,-30)
+        text.move(-75,-55)
 
     def paintEvent(self, e):
         painter = QtGui.QPainter()
@@ -224,11 +224,9 @@ class GUI(QtWidgets.QMainWindow):
         self.destpath = QtWidgets.QFileDialog.getExistingDirectory(self, "Select desired destination folder","\\home\\", QtWidgets.QFileDialog.ShowDirsOnly )
         print(self.destpath)
         self.destpath = pathResolver(str(self.destpath))
-        print(self.destpath)
 
     def assignNum(self):
         self.num = int(self.numberSelectorBox.text())
-        print(self.num)
 
     def assignTag(self):
         self.tag = str(self.tagSelectorBox.text())
@@ -249,7 +247,7 @@ class GUI(QtWidgets.QMainWindow):
         self.help = QtWidgets.QWidget()
         self.help.setWindowTitle("Help")
         self.help.setWindowIcon(QtGui.QIcon(r"Resources\Icons\Help.png"))
-        self.help.setGeometry(1*WINDOW_WIDTH/3,1*WINDOW_HEIGHT/3,700,280)
+        self.help.setGeometry(1*WINDOW_WIDTH/3,1*WINDOW_HEIGHT/3,700,220)
         self.helpText()
         self.okButton()
         self.help.show()
