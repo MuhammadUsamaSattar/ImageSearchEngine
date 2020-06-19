@@ -3,21 +3,10 @@ import sys
 import ImageFinder
 import pathlib
 import ctypes
+import os
 
 WINDOW_WIDTH = ctypes.windll.user32.GetSystemMetrics(0)*0.75
 WINDOW_HEIGHT = ctypes.windll.user32.GetSystemMetrics(1)*0.75
-
-def pathResolver(path):
-    newpath = ""
-    characters = []
-    for i in range(len(path)):
-        if (path[i] == "/" and i != 0):
-            characters.append("\\\\")
-        else:
-            characters.append(path[i])
-    characters = tuple(characters)
-    return newpath.join(characters)
-
 
 class GUI(QtWidgets.QMainWindow):
     def __init__(self):
@@ -72,7 +61,7 @@ class GUI(QtWidgets.QMainWindow):
     def browsewindow(self):
         self.filepath = QtWidgets.QFileDialog.getOpenFileName(self, "Browse Image File","C:\\","Images (*.png *.jpg *.jpeg *.bmp)")[0]
         print(self.filepath)
-        self.filepath = pathResolver(str(self.filepath))
+        self.filepath = os.path.normpath(str(self.filepath))
         self.imageDisplay()
 
     def numberSelector(self):
@@ -223,7 +212,7 @@ class GUI(QtWidgets.QMainWindow):
     def dest(self): 
         self.destpath = QtWidgets.QFileDialog.getExistingDirectory(self, "Select desired destination folder","\\home\\", QtWidgets.QFileDialog.ShowDirsOnly )
         print(self.destpath)
-        self.destpath = pathResolver(str(self.destpath))
+        self.destpath = os.path.normpath(str(self.destpath))
 
     def assignNum(self):
         self.num = int(self.numberSelectorBox.text())
